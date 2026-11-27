@@ -2,6 +2,7 @@
 // Імпортуємо необхідні модулі
 import express from 'express'
 import router from './routes/index.mjs'
+import { notFoundHandler, errorHandler } from './middlewares/error.middleware.mjs'
 
 // Створюємо EXPRESS сервер
 const app = express()
@@ -21,14 +22,8 @@ app.use(
 )
 app.use(router)
 
-app.use((req, res) => {
-    res.status(404).send('Not Found')
-})
-
-app.use((err, req, res, next) => {
-    console.error(err.stack)
-    res.status(500).send('Internal Server Error')
-})
+app.use(notFoundHandler)
+app.use(errorHandler)
 
 const server = app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`)

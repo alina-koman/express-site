@@ -16,7 +16,7 @@ router.use(basicAuth)
 router.get('/', getUsers)
 router.post('/', validationMiddleware, createUser)
 router.get('/:userId', getUserById)
-router.put('/:userId', updateUser)
+router.put('/:userId', validationMiddleware, updateUser)
 router.delete('/:userId', deleteUser)
 
 export default router
